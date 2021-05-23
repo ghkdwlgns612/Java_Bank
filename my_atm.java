@@ -75,12 +75,14 @@ public class my_atm {
 						{
 							while (phone.charAt(j) == my_inform.arrBank[bank_num][i].phone.charAt(j) && j < len)
 							{
-								System.out.println(j);
 								j++;
+								if (j == len)
+									break ;
 							}
 							if (j == len)
 							{
 								System.out.println(my_inform.arrBank[bank_num][i].account);
+								j = 0;
 							}
 							else
 								j = 0;
