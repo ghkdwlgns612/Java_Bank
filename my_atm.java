@@ -47,49 +47,47 @@ public class my_atm {
 						while (true)
 						{
 							System.out.print("핸드폰 번호 [  '-' 제외 ] : ");
-							local_bank[bank_num].phone = scanner.next();
-							int i = 0;
-							while (i < local_bank[bank_num].phone.length())
-							{
-								if (local_bank[bank_num].phone.charAt(i) < '0' || local_bank[bank_num].phone.charAt(i) > '9')
-									break ;
-								i++;
-							}
-							if (i == local_bank[bank_num].phone.length())
+							phone = scanner.next();
+							local_bank[bank_num].phone = my_inform.check_phone_num(phone, bank_num);
+							if (local_bank[bank_num].phone != null)
 								break ;
 						}
 						System.out.println("비밀번호 : ");
 						local_bank[bank_num].password = scanner.next();
+						local_bank[bank_num].money = 1000;
 						my_inform.arrBank[bank_num][my_inform.bank_count[bank_num]] = local_bank[bank_num];
 						my_inform.bank_count[bank_num]++;
 						break ;
 						
 					case 2: //계좌조회 계좌번호,비밀번호
+						my_inform buf;
 						System.out.print("계좌 개설시 등록한 핸드폰 번호 : ");
 						phone = scanner.next();
-						int i = 0;
-						int flag = 0;
-						int len = phone.length();
-						int j = 0;
-						while (i < my_inform.bank_count[bank_num])
+						buf = my_inform.check_phone(phone, bank_num);
+						if (buf == null)
+							System.out.println("존재하지 않는 계좌입니다.");
+						else
+							System.out.println(buf.account);
+						break ;
+						
+					case 3: //잔고조회 계좌번호,비밀번호
+						int money;
+						while (true)
 						{
-							while (phone.charAt(j) == my_inform.arrBank[bank_num][i].phone.charAt(j) && j < len)
-							{
-								j++;
-								if (j == len)
-									break ;
-							}
-							if (j == len)
-							{
-								System.out.println(my_inform.arrBank[bank_num][i].account);
-								j = 0;
-							}
+							System.out.println("이름 : ");
+							name = scanner.next();
+							System.out.println("비밀번호 : ");
+							password = scanner.next();
+							money = my_inform.check_money(name, password, bank_num);
+							if (money == -1)
+								System.out.println("다시 한 번 입력해주세요.");
 							else
-								j = 0;
-							i++;
+							{
+								System.out.println(money);
+								break ;
+							}
 						}
 						break ;
-					case 3: //잔고조회 계좌번호,비밀번호
 					case 4: //입.출금 액수,계좌번호,비밀번호
 						
 				}
