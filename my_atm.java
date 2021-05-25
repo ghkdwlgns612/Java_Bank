@@ -6,17 +6,13 @@ import java.util.Scanner;
 public class my_atm {
 	public static void main(String[] args) {
 		String chk_bank = "0.국민은행\n1.신한은행\n2.우리은행\n3.나가기";
-		String chk_work = "1.계좌개설\n2.계좌조회\n3.잔고조회\n4.입.출금\n5.나가기";
+		String chk_work = "1.계좌개설\n2.계좌조회\n3.잔고조회\n4.입금\n5.출금\n6.나가기";
 		
 		Scanner scanner = new Scanner(System.in);
 		Random random = new Random();
-		my_inform user = null;
 		
 		int bank_num;
 		int work_num;
-		int index1 = 0;
-		int index2 = 0;
-		int index3 = 0;
 		String account = "", name = "", phone = "", password = "";
 		
 		while(true)
@@ -31,7 +27,7 @@ public class my_atm {
 				System.out.println(chk_work);
 				work_num = scanner.nextInt();
 				scanner.nextLine();
-				if (work_num == 5)
+				if (work_num == 6)
 					{System.out.println("프로그램 종료"); break;}
 				switch (work_num) {
 				
@@ -88,8 +84,69 @@ public class my_atm {
 							}
 						}
 						break ;
-					case 4: //입.출금 액수,계좌번호,비밀번호
-						
+					case 4: //입금 액수,계좌번호,비밀번호
+						while(true)
+						{
+							System.out.println("계좌번호 : ");
+							account = scanner.next();
+							buf = my_inform.check_account(account, bank_num);
+							if (buf == null)
+								System.out.println("존재하지 않는 계좌번호입니다.");
+							else
+								break ;
+						}
+						while (true)
+						{
+							System.out.println("비밀번호 : ");
+							password = scanner.next();
+							buf = my_inform.check_password(password, bank_num);
+							if (buf == null)
+								System.out.println("비밀번호가 일치하지 않습니다.");
+							else
+							{
+								System.out.println("입금금액 : ");
+								money = scanner.nextInt();
+								buf.money += money;
+								break ;
+							}
+						}
+						break ;
+					case 5: //출금 계좌번호.비밀번호
+						while(true)
+						{
+							System.out.println("계좌번호 : ");
+							account = scanner.next();
+							buf = my_inform.check_account(account, bank_num);
+							if (buf == null)
+								System.out.println("존재하지 않는 계좌번호입니다.");
+							else
+								break ;
+						}
+						while (true)
+						{
+							System.out.println("비밀번호 : ");
+							password = scanner.next();
+							buf = my_inform.check_password(password, bank_num);
+							if (buf == null)
+								System.out.println("비밀번호가 일치하지 않습니다.");
+							else
+							{
+								while(true)
+								{
+									System.out.println("출금금액 : ");
+									money = scanner.nextInt();
+									if (money > buf.money)
+										System.out.println("잔고가 부족합니다.");
+									else
+									{
+										buf.money -= money;
+										break ;
+									}
+								}
+								break ;
+							}
+						}
+						break ;
 				}
 			}
 		}

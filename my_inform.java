@@ -29,6 +29,40 @@ public class my_inform {
 		return (phone_chk);
 	}
 	
+	static my_inform check_account(String account, int bank_num)
+	{
+		my_inform account_chk = null;
+		
+		int i = 0;
+			while (i < bank_count[bank_num])
+			{
+				if (arrBank[bank_num][i].account.equals(account)) 
+				{
+					account_chk = arrBank[bank_num][i];
+					break ;
+				}
+				i++;
+			}
+		return (account_chk);
+	}
+	
+	static my_inform check_password(String password, int bank_num)
+	{
+		my_inform password_chk = null;
+		
+		int i = 0;
+			while (i < bank_count[bank_num])
+			{
+				if (arrBank[bank_num][i].password.equals(password)) 
+				{
+					password_chk = arrBank[bank_num][i];
+					break ;
+				}
+				i++;
+			}
+		return (password_chk);
+	}
+	
 	static String check_phone_num(String phone, int bank_num)
 	{
 		int i = 0;
