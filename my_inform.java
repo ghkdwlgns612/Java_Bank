@@ -6,8 +6,8 @@ public class my_inform {
 	static int[] bank_count = {0, 0 ,0};
 
 	int money;
+	int account;
 	String name;
-	String account;
 	String phone;
 	String password;
 	
@@ -29,14 +29,14 @@ public class my_inform {
 		return (phone_chk);
 	}
 	
-	static my_inform check_account(String account, int bank_num)
+	static my_inform check_account(int account, int bank_num)
 	{
 		my_inform account_chk = null;
 		
 		int i = 0;
 			while (i < bank_count[bank_num])
 			{
-				if (arrBank[bank_num][i].account.equals(account)) 
+				if (arrBank[bank_num][i].account == account) 
 				{
 					account_chk = arrBank[bank_num][i];
 					break ;
@@ -62,22 +62,7 @@ public class my_inform {
 			}
 		return (password_chk);
 	}
-	
-	static String check_phone_num(String phone, int bank_num)
-	{
-		int i = 0;
-		while (i < phone.length())
-		{
-			if (phone.charAt(i) < '0' || phone.charAt(i) > '9')
-				break ;
-			i++;
-		}
-		if (i == phone.length())
-			return phone;
-		else
-			return null;
-	}
-	
+
 	
 	static int check_money(String name, String password, int bank_num)
 	{
@@ -90,30 +75,53 @@ public class my_inform {
 			}
 		return (-1);
 	}
-//	public my_inform() {};
-//	
-//	static my_inform checkDup(String account)
-//	{
-//		my_inform a;
-//		return a;
-//	}
-//	
-//	static my_inform login(String account, String password)
-//	{
-//		
-//	}
-//	void deposit(int money)
-//	{
-//		
-//	}
-//	boolean withdraw(int money)
-//	{
-//		
-//	}
-//	void chekc_money()
-//	{
-//		
-//	}
+	
+	static String check_phone_num(String phone, int bank_num)
+	{
+		int i = 0;
+		while (i < phone.length())
+		{
+			if (phone.charAt(i) < '0' || phone.charAt(i) > '9')
+				{System.out.println("숫자만 입력하세요."); break ;}
+			if (phone.length() != 11)
+				{System.out.println("휴대폰 번호만 입력하세요. 길이가 다릅니다."); break ;}
+			i++;
+		}
+		if (i == phone.length())
+			return phone;
+		else
+			return null;
+	}
+	
+	static String check_dup_account(int account, int bank_num)
+	{
+		int i = 0;
+		while (i < bank_count[bank_num])
+		{
+			if (arrBank[bank_num][i].account == account)
+				return null;
+			else
+				i++;
+		}
+		return ("a");
+	}
+	
+	static String chekc_password_format(String password, int bank_num)
+	{
+		int i = 0;
+		while (true)
+		{
+			if (password.length() != 4)
+				return null;
+			if ((password.charAt(i) < '0' || password.charAt(i) > '9') && i < password.length())
+				return null;
+			i++;
+			if (i == password.length())
+				break ;
+		}
+		return (password);
+	}
+	
 //	public static void main(String[] args)
 //	{
 //		
