@@ -1,13 +1,9 @@
 package my_bank;
 
 public class Woori extends my_inform{
-	public Woori() {
-		// TODO Auto-generated constructor stub
+	@Override
+	void ft_print_money(int money)
+	{
+		System.out.println(money + "원" + "♥");
 	}
-	// 잔액 조회시 재산 반토막
-//	@Override
-//	void show() {
-//		this.money *= 0.5;
-//		 super.show();
-//	}
 }
