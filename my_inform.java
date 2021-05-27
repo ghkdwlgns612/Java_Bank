@@ -122,7 +122,7 @@ public class my_inform {
 		return (password);
 	}
 	
-	static int ft_extract(int money, my_inform mine)
+	int ft_extract(int money, my_inform mine)
 	{
 		if (money > mine.money)
 			System.out.println("잔고가 부족합니다.");
@@ -131,8 +131,13 @@ public class my_inform {
 		return (mine.money);
 	}
 	
-//	public static void main(String[] args)
-//	{
-//		
-//	}
+	int ft_create()
+	{
+		return (1000);
+	}
+	
+	void ft_print_money(int money)
+	{
+		System.out.println(money + "원");	
+	}
 }
