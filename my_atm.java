@@ -7,6 +7,7 @@ public class my_atm {
 	public static void main(String[] args) {
 		String chk_bank = "0.국민은행\n1.신한은행\n2.우리은행\n3.나가기";
 		String chk_work = "1.계좌개설\n2.계좌조회\n3.잔고조회\n4.입금\n5.출금\n6.나가기";
+		String bank_name[] = {"Kookmin", "Shinhan", "Woori"};
 		
 		Scanner scanner = new Scanner(System.in);
 		Random random = new Random();
@@ -68,7 +69,7 @@ public class my_atm {
 						my_inform.bank_count[bank_num]++;
 						break ;
 						
-					case 2: //계좌조회 계좌번호,비밀번호
+					case 2: //계좌조회 계좌번호
 						my_inform buf;
 						System.out.print("계좌 개설시 등록한 핸드폰 번호 : ");
 						phone = scanner.next();
@@ -92,7 +93,7 @@ public class my_atm {
 								System.out.println("다시 한 번 입력해주세요.");
 							else
 							{
-								System.out.println(money);
+								System.out.println(money + "원");
 								break ;
 							}
 						}
@@ -125,6 +126,8 @@ public class my_atm {
 						}
 						break ;
 					case 5: //출금 계좌번호.비밀번호
+						int temp_money;
+						
 						while(true)
 						{
 							System.out.println("계좌번호 : ");
@@ -148,18 +151,14 @@ public class my_atm {
 								{
 									System.out.println("출금금액 : ");
 									money = scanner.nextInt();
-									if (money > buf.money)
-										System.out.println("잔고가 부족합니다.");
-									else
-									{
-										buf.money -= money;
+									temp_money = buf.money;
+									buf.money = my_inform.ft_extract(money, buf);
+									if (buf.money != temp_money)
 										break ;
-									}
 								}
-								break ;
+							break ;
 							}
 						}
-						break ;
 				}
 			}
 		}

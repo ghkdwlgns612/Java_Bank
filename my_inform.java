@@ -122,6 +122,15 @@ public class my_inform {
 		return (password);
 	}
 	
+	static int ft_extract(int money, my_inform mine)
+	{
+		if (money > mine.money)
+			System.out.println("잔고가 부족합니다.");
+		else
+			mine.money -= money;
+		return (mine.money);
+	}
+	
 //	public static void main(String[] args)
 //	{
 //		
