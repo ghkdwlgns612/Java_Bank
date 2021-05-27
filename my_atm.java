@@ -5,8 +5,8 @@ import java.util.Scanner;
 
 public class my_atm {
 	public static void main(String[] args) {
-		String chk_bank = "0.±¹¹ÎÀºÇà\n1.½ÅÇÑÀºÇà\n2.¿ì¸®ÀºÇà\n3.³ª°¡±â";
-		String chk_work = "1.°èÁÂ°³¼³\n2.°èÁÂÁ¶È¸\n3.ÀÜ°íÁ¶È¸\n4.ÀÔ±Ý\n5.Ãâ±Ý\n6.³ª°¡±â";
+		String chk_bank = "0.êµ­ë¯¼ì€í–‰\n1.ì‹ í•œì€í–‰\n2.ìš°ë¦¬ì€í–‰\n3.ë‚˜ê°€ê¸°";
+		String chk_work = "1.ê³„ì¢Œê°œì„¤\n2.ê³„ì¢Œì¡°íšŒ\n3.ìž”ê³ ì¡°íšŒ\n4.ìž…ê¸ˆ\n5.ì¶œê¸ˆ\n6.ë‚˜ê°€ê¸°";
 		String bank_name[] = {"Kookmin", "Shinhan", "Woori"};
 		
 		Scanner scanner = new Scanner(System.in);
@@ -16,14 +16,17 @@ public class my_atm {
 		int bank_num;
 		int work_num;
 		int account = 0;
+		int money;
 		String name = "", phone = "", password = "";
+		my_inform buf;
+		
 		while(true)
 		{
 			System.out.println(chk_bank);
 			bank_num = scanner.nextInt();
 			scanner.nextLine();
 			if (bank_num == 3)
-				{System.out.println("ÇÁ·Î±×·¥ Á¾·á"); break;}
+				{System.out.println("í”„ë¡œê·¸ëž¨ ì¢…ë£Œ"); break;}
 			while(true)
 			{
 				System.out.println(chk_work);
@@ -33,23 +36,23 @@ public class my_atm {
 					break;
 				switch (work_num) {
 				
-					case 1: //°èÁÂ°³¼³ random,ÀÌ¸§,ºñ¹Ð¹øÈ£ ÇÊ¿ä
-						my_inform[] local_bank = {new Kookmin(), new Shinhan(), new Woori()};
+					my_inform[] local_bank = {new Kookmin(), new Shinhan(), new Woori()};
+					case 1: //ê³„ì¢Œê°œì„¤ random,ì´ë¦„,ë¹„ë°€ë²ˆí˜¸ í•„ìš”
 						while (true)
 						{
-							local_bank[bank_num].account = (random.nextInt(90000) + 100000);// 0 ~ 90000±îÁöÀÇ ³­¼ö¸¦ ¹ß»ý½ÃÅ°°í + 100000À» ÇØÁÜ.
+							local_bank[bank_num].account = (random.nextInt(90000) + 100000);// 0 ~ 90000ê¹Œì§€ì˜ ë‚œìˆ˜ë¥¼ ë°œìƒì‹œí‚¤ê³  + 100000ì„ í•´ì¤Œ.
 							if (my_inform.check_dup_account(local_bank[bank_num].account,bank_num) == null)
-								{System.out.println("Áßº¹ °èÁÂ°¡ Á¸ÀçÇÕ´Ï´Ù. ´Ù½Ã ÀÔ·ÂÇØÁÖ¼¼¿ä.");}
+								{System.out.println("ì¤‘ë³µ ê³„ì¢Œê°€ ì¡´ìž¬í•©ë‹ˆë‹¤. ë‹¤ì‹œ ìž…ë ¥í•´ì£¼ì„¸ìš”.");}
 							else
 								break;
 						}
-						System.out.println("¿¹±ÝÁÖ : ");
+						System.out.println("ì˜ˆê¸ˆì£¼ : ");
 						local_bank[bank_num].name = scanner.next();
 						if (local_bank[bank_num].name.length() > 4 || local_bank[bank_num].name.length() < 2)
-							{System.out.println("ÀÌ¸§ÀÌ Çü½Ä¿¡ ¸ÂÁö ¾Ê½À´Ï´Ù."); break ;}
+							{System.out.println("ì´ë¦„ì´ í˜•ì‹ì— ë§žì§€ ì•ŠìŠµë‹ˆë‹¤."); break ;}
 						while (true)
 						{
-							System.out.print("ÇÚµåÆù ¹øÈ£ [  '-' Á¦¿Ü ] : ");
+							System.out.print("í•¸ë“œí° ë²ˆí˜¸ [  '-' ì œì™¸ ] : ");
 							phone = scanner.next();
 							local_bank[bank_num].phone = my_inform.check_phone_num(phone, bank_num);
 							if (local_bank[bank_num].phone != null)
@@ -57,99 +60,97 @@ public class my_atm {
 						}
 						while (true)
 						{
-							System.out.println("ºñ¹Ð¹øÈ£ : ");
+							System.out.println("ë¹„ë°€ë²ˆí˜¸ : ");
 							local_bank[bank_num].password = scanner.next();
 							if (my_inform.chekc_password_format(local_bank[bank_num].password, bank_num) != null)
 								break ;
 							else
-								System.out.println("ºñ¹Ð¹øÈ£¸¦ ´Ù½Ã ÀÔ·ÂÇÏ¼¼¿ä.");
+								System.out.println("ë¹„ë°€ë²ˆí˜¸ë¥¼ ë‹¤ì‹œ ìž…ë ¥í•˜ì„¸ìš”.");
 						}
 						local_bank[bank_num].money = 1000;
 						my_inform.arrBank[bank_num][my_inform.bank_count[bank_num]] = local_bank[bank_num];
 						my_inform.bank_count[bank_num]++;
 						break ;
 						
-					case 2: //°èÁÂÁ¶È¸ °èÁÂ¹øÈ£
-						my_inform buf;
-						System.out.print("°èÁÂ °³¼³½Ã µî·ÏÇÑ ÇÚµåÆù ¹øÈ£ : ");
+					case 2: //ê³„ì¢Œì¡°íšŒ ê³„ì¢Œë²ˆí˜¸
+						System.out.print("ê³„ì¢Œ ê°œì„¤ì‹œ ë“±ë¡í•œ í•¸ë“œí° ë²ˆí˜¸ : ");
 						phone = scanner.next();
 						buf = my_inform.check_phone(phone, bank_num);
 						if (buf == null)
-							System.out.println("Á¸ÀçÇÏÁö ¾Ê´Â °èÁÂÀÔ´Ï´Ù.");
+							System.out.println("ì¡´ìž¬í•˜ì§€ ì•ŠëŠ” ê³„ì¢Œìž…ë‹ˆë‹¤.");
 						else
 							System.out.println(buf.account);
 						break ;
 						
-					case 3: //ÀÜ°íÁ¶È¸ °èÁÂ¹øÈ£,ºñ¹Ð¹øÈ£
-						int money;
+					case 3: //ìž”ê³ ì¡°íšŒ ê³„ì¢Œë²ˆí˜¸,ë¹„ë°€ë²ˆí˜¸
 						while (true)
 						{
-							System.out.println("ÀÌ¸§ : ");
+							System.out.println("ì´ë¦„ : ");
 							name = scanner.next();
-							System.out.println("ºñ¹Ð¹øÈ£ : ");
+							System.out.println("ë¹„ë°€ë²ˆí˜¸ : ");
 							password = scanner.next();
 							money = my_inform.check_money(name, password, bank_num);
 							if (money == -1)
-								System.out.println("´Ù½Ã ÇÑ ¹ø ÀÔ·ÂÇØÁÖ¼¼¿ä.");
+								System.out.println("ë‹¤ì‹œ í•œ ë²ˆ ìž…ë ¥í•´ì£¼ì„¸ìš”.");
 							else
 							{
-								System.out.println(money + "¿ø");
+								System.out.println(money + "ì›");
 								break ;
 							}
 						}
 						break ;
-					case 4: //ÀÔ±Ý ¾×¼ö,°èÁÂ¹øÈ£,ºñ¹Ð¹øÈ£
+					case 4: //ìž…ê¸ˆ ì•¡ìˆ˜,ê³„ì¢Œë²ˆí˜¸,ë¹„ë°€ë²ˆí˜¸
 						while(true)
 						{
-							System.out.println("°èÁÂ¹øÈ£ : ");
+							System.out.println("ê³„ì¢Œë²ˆí˜¸ : ");
 							account = scanner.nextInt();
 							buf = my_inform.check_account(account, bank_num);
 							if (buf == null)
-								System.out.println("Á¸ÀçÇÏÁö ¾Ê´Â °èÁÂ¹øÈ£ÀÔ´Ï´Ù.");
+								System.out.println("ì¡´ìž¬í•˜ì§€ ì•ŠëŠ” ê³„ì¢Œë²ˆí˜¸ìž…ë‹ˆë‹¤.");
 							else
 								break ;
 						}
 						while (true)
 						{
-							System.out.println("ºñ¹Ð¹øÈ£ : ");
+							System.out.println("ë¹„ë°€ë²ˆí˜¸ : ");
 							password = scanner.next();
 							buf = my_inform.check_password(password, bank_num);
 							if (buf == null)
-								System.out.println("ºñ¹Ð¹øÈ£°¡ ÀÏÄ¡ÇÏÁö ¾Ê½À´Ï´Ù.");
+								System.out.println("ë¹„ë°€ë²ˆí˜¸ê°€ ì¼ì¹˜í•˜ì§€ ì•ŠìŠµë‹ˆë‹¤.");
 							else
 							{
-								System.out.println("ÀÔ±Ý±Ý¾× : ");
+								System.out.println("ìž…ê¸ˆê¸ˆì•¡ : ");
 								money = scanner.nextInt();
 								buf.money += money;
 								break ;
 							}
 						}
 						break ;
-					case 5: //Ãâ±Ý °èÁÂ¹øÈ£.ºñ¹Ð¹øÈ£
+					case 5: //ì¶œê¸ˆ ê³„ì¢Œë²ˆí˜¸.ë¹„ë°€ë²ˆí˜¸
 						int temp_money;
 						
 						while(true)
 						{
-							System.out.println("°èÁÂ¹øÈ£ : ");
+							System.out.println("ê³„ì¢Œë²ˆí˜¸ : ");
 							account = scanner.nextInt();
 							buf = my_inform.check_account(account, bank_num);
 							if (buf == null)
-								System.out.println("Á¸ÀçÇÏÁö ¾Ê´Â °èÁÂ¹øÈ£ÀÔ´Ï´Ù.");
+								System.out.println("ì¡´ìž¬í•˜ì§€ ì•ŠëŠ” ê³„ì¢Œë²ˆí˜¸ìž…ë‹ˆë‹¤.");
 							else
 								break ;
 						}
 						while (true)
 						{
-							System.out.println("ºñ¹Ð¹øÈ£ : ");
+							System.out.println("ë¹„ë°€ë²ˆí˜¸ : ");
 							password = scanner.next();
 							buf = my_inform.check_password(password, bank_num);
 							if (buf == null)
-								System.out.println("ºñ¹Ð¹øÈ£°¡ ÀÏÄ¡ÇÏÁö ¾Ê½À´Ï´Ù.");
+								System.out.println("ë¹„ë°€ë²ˆí˜¸ê°€ ì¼ì¹˜í•˜ì§€ ì•ŠìŠµë‹ˆë‹¤.");
 							else
 							{
 								while(true)
 								{
-									System.out.println("Ãâ±Ý±Ý¾× : ");
+									System.out.println("ì¶œê¸ˆê¸ˆì•¡ : ");
 									money = scanner.nextInt();
 									temp_money = buf.money;
 									buf.money = my_inform.ft_extract(money, buf);
