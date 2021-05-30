@@ -6,7 +6,7 @@ import java.util.Scanner;
 
 public class server {
 
-	public static int PORT = 6005;
+	public static int PORT = 6077;
 	public static void main(String[] args)
 	{
         InputStream is = null;
